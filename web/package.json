@@ -17,6 +17,7 @@
     "qrcode": "^1.4.4",
     "qrcode.react": "^1.0.0",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-data-grid": "^7.0.0-canary.18",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.3.0",
