@@ -1,0 +1,32 @@
+:root {
+    --primary-color: rgb(67, 70, 79);
+    --second-color: rgb(58, 60, 68);
+    --accent-color: rgb(79, 160, 140);
+  }
+
+  @font-face {
+    font-family: 'burtonsregular';
+    src: url('../src/assets/burtons-webfont.woff2') format('woff2'),
+         url('../src/assets/burtons-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+  
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    color: var(--text-color);
+    overflow-x: hidden;
+  }
+  
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'burtonsregular';
+}
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--title-color);
+    font-family: Arial, Helvetica, sans-serif;
+  }
