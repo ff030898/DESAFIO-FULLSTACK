@@ -1,5 +1,6 @@
 body {
     background: var(--second-color);
+    overflow-x: hidden;
 }
 
 
@@ -17,7 +18,6 @@ body {
     top: 230px;
     left: 30px;
     bottom: 0;
-    width: 100%;
     line-height: 30px;
     height: 30px;
     float: left;
@@ -81,8 +81,9 @@ body {
     color: var(--accent-color);
     background-color: var(--second-color);
     border-color: var(--accent-color);
-    margin-top: 80px;
+    margin-top: 30px;
     margin-left: 10%;
+    margin-bottom: 30px;
     cursor: pointer;
     font-size: 1em;
 }

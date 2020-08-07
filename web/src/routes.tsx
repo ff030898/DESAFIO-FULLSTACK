@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Create from './pages/Create'
 import PanelControl from './pages/PanelControl';
 
+
 const Routes = () =>{
     return(
        <BrowserRouter>

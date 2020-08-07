@@ -66,7 +66,7 @@ const Create = () => {
 
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{margin: 0, overflow: "hidden"}}>
 
                 <div style={{ margin: 50 }}>
 
@@ -111,7 +111,7 @@ const Create = () => {
 
                 </div>
 
-                <button type="submit" className="btn-create">Deslize para realizar o pedido <FiArrowRight /></button>
+                <button type="submit" className="btn-create">Clique para realizar o pedido <FiArrowRight /></button>
 
             </form>
 

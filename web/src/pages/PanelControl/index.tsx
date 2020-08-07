@@ -47,24 +47,24 @@ const PanelControl = (() => {
             })
     }
 
-    
+
     return (
 
-        <div className="div-principal">
-            <MaterialTable
-                title="Pedidos"
-                columns={state.columns}
-                data={data}
-                style={{ margin: 15, borderRadius: 10, padding: 30, fontWeight: 900 }}
-                editable={{
-                    onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve) => {
-                            handleRowUpdate(newData, oldData, resolve);
-                        })
-                }}
-            />
 
-        </div>
+        <MaterialTable
+            title="Pedidos"
+            columns={state.columns}
+            data={data}
+            style={{ margin: 30, borderRadius: 10, padding: 30, fontWeight: 900 }}
+            editable={{
+                onRowUpdate: (newData, oldData) =>
+                    new Promise((resolve) => {
+                        handleRowUpdate(newData, oldData, resolve);
+                    })
+            }}
+        />
+
+
 
     );
 

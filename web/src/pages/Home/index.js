@@ -40,7 +40,7 @@ const Home = () => {
 
                 <div className="item">
                     <div>
-                        <QRCode value='http://localhost:3000/create' />
+                        <QRCode value='http://192.168.15.10:3000/create' />
                         <p className="text-scan">...</p>
                     </div>
 
