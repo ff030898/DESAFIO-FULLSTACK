@@ -1,73 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import MaterialTable, { Column } from 'material-table';
-import api from '../../services/api';
+import React, { useEffect, useState } from 'react'
+import MaterialTable, { Column } from 'material-table'
+import { getRequests, updateRequest } from '../../services/api'
+import './styles.css'
 
 interface Row {
-    id: number;
-    name: string;
-    coffee: string;
-    qtd: number;
-    status: string;
+  id: number;
+  name: string;
+  coffee: string;
+  qtd: number;
+  status: string;
 }
 
 interface TableState {
-    columns: Array<Column<Row>>;
+  columns: Array<Column<Row>>;
 }
 
-const PanelControl = (() => {
+const PanelControl = () => {
+  const [data, setData] = useState<Row[]>([])
 
-    const [data, setData] = useState<Row[]>([]);
+  const [state] = useState<TableState>({
+    columns: [
+      { title: 'id', field: 'id', hidden: true },
+      { title: 'Cliente', field: 'name' },
+      { title: 'Item', field: 'coffee' },
+      { title: 'Status', field: 'status', lookup: { 1: 'Preparando', 2: 'Pronto', 3: 'Retirar', 4: 'Finalizado' } },
+      { title: 'Quantidade', field: 'qtd', type: 'numeric' }
+    ]
 
-    const [state] = useState<TableState>({
-        columns: [
-            { title: "id", field: "id", hidden: true },
-            { title: "Cliente", field: "name" },
-            { title: "Item", field: "coffee" },
-            { title: "Status", field: "status", lookup: { 1: 'Preparando', 2: 'Pronto', 3: 'Retirar', 4: 'Finalizado' } },
-            { title: "Quantidade", field: "qtd", type: 'numeric' }
-        ],
+  })
 
-    });
+  useEffect(() => {
+    getRequests().then(setData)
+  }, [])
 
-    useEffect(() => {
-        api.get('requests').then(response => {
-            setData(response.data)
-        })
-    }, [])
+  const handleRowUpdate = (newData: Row, oldData: any, resolve: any) => {
 
-    const handleRowUpdate = (newData: Row, oldData: any, resolve: any) => {
+    updateRequest(newData.id, newData).then(res => {
+      const dataUpdate = [...data]
+      const index = oldData.tableData.id
+      dataUpdate[index] = newData
+      setData([...dataUpdate])
+      resolve()
+    })
 
-        api.put("/requests/" + newData.id, newData)
-            .then(res => {
-                const dataUpdate = [...data];
-                const index = oldData.tableData.id;
-                dataUpdate[index] = newData;
-                setData([...dataUpdate]);
-                resolve()
-            })
-    }
+  }
+  return (
 
-
-    return (
-
-
+    <React.StrictMode>
+      <div className="div-table">
         <MaterialTable
-            title="Pedidos"
-            columns={state.columns}
-            data={data}
-            style={{ margin: 30, borderRadius: 10, padding: 30, fontWeight: 900 }}
-            editable={{
-                onRowUpdate: (newData, oldData) =>
-                    new Promise((resolve) => {
-                        handleRowUpdate(newData, oldData, resolve);
-                    })
-            }}
+          title="Pedidos"
+          columns={state.columns}
+          data={data}
+          style={{padding: 50}}
+          editable={{
+            onRowUpdate: (newData: any, oldData: any) =>
+              new Promise((resolve) => {
+                handleRowUpdate(newData, oldData, resolve)
+              }),
+          }}
         />
+      </div>
+    </React.StrictMode>
 
+  )
+}
 
-
-    );
-
-});
-
-export default PanelControl;
+export default PanelControl

@@ -1,0 +1,6 @@
+dist
+controller
+/*.ts
+/*.js
+server.ts
+seeds

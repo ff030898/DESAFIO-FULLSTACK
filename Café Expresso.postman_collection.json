@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "a5822f5e-c050-4672-a6c3-e0c6285172a7",
+		"name": "Café Expresso",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "index",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/requests?status=1",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"requests"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "show",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/requests/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"requests",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n        \"name\": \"John Doe\",\r\n        \"email\": \"lohn@gmail.com\",\r\n        \"tel\": \"(11) 988888888\",\r\n        \"coffee\": \"Café Expresso\",\r\n        \"qtd\": 1,\r\n        \"status\": \"1\"\r\n        \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3333/requests/8",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"requests",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n        \"name\": \"John Doe\",\r\n        \"email\": \"john@gmail.com\",\r\n        \"tel\": \"(11) 988888888\",\r\n        \"coffee\": \"Café Expresso\",\r\n        \"qtd\": 1,\r\n        \"status\": \"1\"\r\n        \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3333/requests",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3333/requests/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"requests",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

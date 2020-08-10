@@ -3,7 +3,24 @@ body {
     overflow-x: hidden;
 }
 
+form{
+    margin: 0;
+    overflow: hidden;
+  }
 
+.div-form{
+    
+    margin: 0 50px 30px 30px;
+}
+
+.error{
+    margin-top: 10px;
+}
+
+.input{
+    margin-top: 20px;
+}
+  
 .banner {
     height: 700px;
     margin-top: -20px;
@@ -181,6 +198,12 @@ body {
 
     .text-qtd {
         font-size: 3em;
+    }
+
+    .btn-create{
+        margin: 50px 0 50px 30px;
+        margin-right: 535px;
+        width: 98%;
     }
 
 

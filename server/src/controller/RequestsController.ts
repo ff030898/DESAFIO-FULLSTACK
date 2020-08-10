@@ -1,133 +1,196 @@
-import Knex from '../database/connection';
-import { Request, Response } from 'express';
+import Knex from '../database/connection'
+import { Request, Response, NextFunction } from 'express'
+import { io } from '../server'
+
 
 class RequestsController {
+    static async index(request: Request, response: Response, next: NextFunction) {
 
-    async index(request: Request, response: Response) {
+        try {
 
-        const requests = await Knex('requests').select('*');
+            const filters = request.query;
 
-        const serializedRequests = requests.map((item) => {
-            return {
-                id: item.id,
-                name: item.name,
-                tel: item.tel,
-                coffee: item.coffee,
-                qtd: item.qtd,
-                status: item.status
-            };
-        });
+            const status = filters.status as String;
 
-        return response.json(serializedRequests);
-    }
+            if (!status) {
+                const requests = await Knex('requests').select('*')
 
-    async show(request: Request, response: Response) {
+                const serializedRequests = requests.map((item) => {
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        tel: item.tel,
+                        coffee: item.coffee,
+                        qtd: item.qtd,
+                        status: item.status
+                    }
+                })
 
-        //desestruturação: Poderia ser: const id = request.params.id;   
-        const { status } = request.params;
+                if (serializedRequests.length == 0) {
+                    return response.status(404).json({ message: 'Not found' })
+                }
 
-        const requests = await Knex('requests').where('status', status);
+                return response.status(200).json(serializedRequests)
+            }
 
-        const serializedRequests = requests.map((item) => {
-            return {
-                id: item.id,
-                name: item.name,
-                tel: item.tel,
-                coffee: item.coffee,
-                qtd: item.qtd,
-                status: item.status
-            };
-        });
+            const requests = await Knex('requests').where('status', status)
 
-        
-        if (!requests) {
-            return response.status(400).json({ message: 'Requests not found' });
+            const serializedRequests = requests.map((item) => {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    tel: item.tel,
+                    coffee: item.coffee,
+                    qtd: item.qtd,
+                    status: item.status
+                }
+            })
+
+            if (serializedRequests.length == 0) {
+                return response.status(404).json({ message: 'Not found' })
+            }
+
+            return response.status(200).json(serializedRequests)
+
+
+
+        } catch (err) {
+            next(err)
         }
-
-        return response.json(serializedRequests);
     }
 
+    static async show(request: Request, response: Response, next: NextFunction) {
 
-    async create(request: Request, response: Response) {
+        try {
+            // desestruturação: Poderia ser: const id = request.params.id;
+            const { id } = request.params
 
-        const {
-            name,
-            email,
-            tel,
-            coffee,
-            qtd,
-            status
+            const requests = await Knex('requests').where('id', id)
 
-        } = request.body;
+            const serializedRequests = requests.map((item) => {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    tel: item.tel,
+                    coffee: item.coffee,
+                    qtd: item.qtd,
+                    status: item.status
+                }
+            })
+
+            if (serializedRequests.length == 0) {
+                return response.status(404).json({ message: 'Not found' })
+            }
 
 
-        const trx = await Knex.transaction();
+            return response.status(200).json(serializedRequests)
 
-        const item = {
-
-            name,
-            email,
-            tel,
-            coffee,
-            qtd,
-            status
-
+        } catch (err) {
+            next(err)
         }
+    }
 
-        const insert = await trx('requests').insert(item);
+    static async create(request: Request, response: Response, next: NextFunction) {
+        try {
 
-        await trx.commit();
+            io.emit('status', 'create')
+             
+            const {
+                name,
+                email,
+                tel,
+                coffee,
+                qtd,
+                status
 
-        if (insert) {
-            return response.status(200).json({ message: 'create' });
+            } = request.body
+
+            const item = {
+
+                name,
+                email,
+                tel,
+                coffee,
+                qtd,
+                status
+            }
+
+            await Knex('requests').insert(item)
+
+            return response.status(201).json({ message: 'Request create successful' })
+
+        } catch (err) {
+            next(err)
         }
-
     }
 
-    async store(request: Request, response: Response) {
+    static async store(request: Request, response: Response, next: NextFunction) {
 
-        const { id } = request.params;
+        try {
 
-        const {
-            name,
-            email,
-            tel,
-            coffee,
-            qtd,
-            status
+            io.emit('status', 'update')
 
-        } = request.body;
+            const { id } = request.params
 
-        const item = {
+            const {
+                name,
+                email,
+                tel,
+                coffee,
+                qtd,
+                status
 
-            name,
-            email,
-            tel,
-            coffee,
-            qtd,
-            status
+            } = request.body
+
+            const item = {
+
+                name,
+                email,
+                tel,
+                coffee,
+                qtd,
+                status
+            }
+
+            const update = await Knex('requests')
+                .update(item)
+                .where({ id })
+
+            if (!update) {
+
+                return response.status(400).json({ message: 'Bad Request' })
+
+            }
+
+            return response.status(201).json({ message: 'request update successful' })
+
+        } catch (err) {
+            next(err)
         }
-
-        await Knex('requests')
-            .update(item)
-            .where({ id });
-
-        return response.status(200).json({ message: 'update' });
-
     }
 
-    async destroy (request: Request, response: Response) {
+    static async destroy(request: Request, response: Response, next: NextFunction) {
 
-        const { id } = request.params;
+        try {
 
-        await Knex('requests')
-            .del()
-            .where({ id });
+            io.emit('status', 'delete')
 
-        return response.status(200).json({ message: 'delete' });
+            const { id } = request.params
 
+            const del = await Knex('requests')
+                .del()
+                .where({ id })
+
+            if (!del) {
+                return response.status(404).json({ message: 'Not found' })
+            }
+
+            return response.status(200).json({ message: 'request delete successful' })
+
+        } catch (err) {
+            next(err)
+        }
     }
-
 }
 
-export default RequestsController;
+export default RequestsController
