@@ -3,8 +3,7 @@ import './styles.css'
 import QRCode from 'react-qr-code'
 import { getRequestsByStatus } from '../../services/api'
 import io from 'socket.io-client'
-import { baseURL } from '../../services/api'
-
+import { baseURL, baseURLQRCode } from '../../services/api'
 
 
 const Home = () => {
@@ -12,7 +11,6 @@ const Home = () => {
   const [ready, setReady] = useState([])
   const [data, setData] = useState([])
   const [status, setStatus] = useState('');
-
 
 
   useEffect(() => {
@@ -37,7 +35,7 @@ const Home = () => {
 
           <div className="item">
             <div>
-              <QRCode value={`${baseURL}/create`} />
+              <QRCode value={baseURLQRCode} />
               <p className="text-scan">...</p>
             </div>
 

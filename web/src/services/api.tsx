@@ -1,7 +1,8 @@
 import axios from 'axios'
-import ip from 'ip'
 
-export const baseURL = `http://${ip.address()}:3333`
+export const baseURL = 'http://192.168.15.14:3333'
+
+export const baseURLQRCode = 'http://192.168.15.14:3000/create'
 
 const api = axios.create({ baseURL })
 
