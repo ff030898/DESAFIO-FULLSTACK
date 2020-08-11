@@ -156,6 +156,7 @@ form{
         height: 550px;
     }
 
+
     .qtd-pedido {
         top: 400px;
         left: 65px;
@@ -171,29 +172,14 @@ form{
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .banner {
-        height: 600px;
-    }
-
-    .qtd-pedido {
-        top: 450px;
-        left: 80px;
-    }
-
-    .text-qtd {
-        font-size: 3em;
-    }
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    .banner {
         height: 450px;
+        width: 40%;
+        float: left;
     }
 
     .qtd-pedido {
         top: 330px;
-        left: 140px;
+        left: 30px;
     }
 
     .text-qtd {
@@ -202,8 +188,31 @@ form{
 
     .btn-create{
         margin: 50px 0 50px 30px;
-        margin-right: 535px;
-        width: 98%;
+        width: 92%;
+    }
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .banner {
+        height: 600px;
+        width: 40%;
+        float: left;
+    }
+
+    .qtd-pedido {
+        top: 430px;
+        left: 60px;
+    }
+
+    .text-qtd {
+        font-size: 3em;
+    }
+
+    .btn-create{
+        margin: 50px 0 50px 30px;
+        width: 96%;
     }
 
 

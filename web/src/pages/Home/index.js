@@ -23,9 +23,6 @@ const Home = () => {
 
   }, [status])
 
-
-
-
   return (
 
     <React.StrictMode>

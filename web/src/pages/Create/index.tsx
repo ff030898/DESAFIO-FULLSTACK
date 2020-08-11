@@ -2,15 +2,28 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import banner from '../../assets/img/banner.png'
 import { FiArrowRight } from 'react-icons/fi'
+import { createRequest } from '../../services/api'
 import './styles.css'
-import {createRequest} from '../../services/api'
+
+
+interface TextMaskCustomProps {
+  inputRef: (ref: HTMLInputElement | null) => void;
+}
+
+
+interface State {
+  textmask: string;
+}
+
 
 const Create = () => {
   const [counter, setCounter] = useState(1)
 
+ 
+
   const { register, handleSubmit, errors } = useForm()
 
-  async function onSubmit (data: any) {
+  async function onSubmit(data: any) {
     const { name, email, tel } = data
     const coffee = 'Café Expresso'
     const qtd = counter
@@ -32,7 +45,7 @@ const Create = () => {
     window.location.reload()
   }
 
-  async function handleButtonMin () {
+  async function handleButtonMin() {
     if (counter > 1) {
       setCounter(counter - 1)
     } else {
@@ -40,9 +53,11 @@ const Create = () => {
     }
   }
 
-  async function handleButtonMax () {
+  async function handleButtonMax() {
     setCounter(counter + 1)
   }
+
+
 
   return (
     <div>
@@ -50,7 +65,7 @@ const Create = () => {
         <img src={banner} alt="Café Expresso" className="banner" />
         <div className="qtd-pedido">
           <div className="text-qtd">
-                        0{counter}
+            0{counter}
           </div>
           <button className="btn-min" onClick={handleButtonMin}>-</button>
           <button className="btn-max" onClick={handleButtonMax}>+</button>
@@ -92,8 +107,15 @@ const Create = () => {
             placeholder="Telefone"
             className="input"
             name="tel"
+            type="tel"
+            minLength={10}
+            maxLength={11}
             ref={register({
-              required: 'Digite seu telefone'
+              required: 'Digite seu telefone',
+              pattern: {
+                value: /[0-9]$/i,
+                message: 'Digite um telefone válido'
+              }
             })}
           />
 
