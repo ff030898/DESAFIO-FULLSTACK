@@ -8,6 +8,10 @@ Front-End: React, TypeScript e Material UI
 
 Back-End: Node, typeScript, knex, sqlite3 e Insomnia para testar as requisições HTTP
 
+# INSTALANDO DEPENDENCIAS DO PROJETO
+
+Para instalar as dependências abre a pasta raiz do projeto no editor de sua preferência ou no terminal do S.O. E no terminal digite o comando: npm install
+
 # INICIANDO O BACK-END
 
 Para executar o back-end da aplicação execute o comando: npm run dev
